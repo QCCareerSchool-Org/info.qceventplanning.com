@@ -1,0 +1,31 @@
+$primary: #14a98a;
+$light: #f2f2f2;
+
+$custom-colors: (
+  "black": #000
+);
+
+$h1-font-size: 3.75rem;
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+$font-family-sans-serif: "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$headings-font-family: "Playfair Display", "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+$card-spacer-x: 1.5rem;
+$card-spacer-y: 1.5rem;
+
+@import "~bootstrap/scss/bootstrap";
+
+.btn-primary { color: white; }
+
+h1, .h1 { font-weight: normal; }
+h2, .h2, h3, .h3 { font-family: "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+@import "./section.scss";
+
+.btn { text-transform: uppercase; }

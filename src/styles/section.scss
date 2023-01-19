@@ -1,0 +1,23 @@
+section {
+  padding: 2rem 0;
+  position: relative; /* in case we use a cover image */
+  overflow: hidden; /* in case we use a cover image */
+}
+
+// section#top { padding-top: 6rem }
+
+@media (min-width: 576px) {
+  section, .section { padding: 3rem 0 }
+}
+
+@media (min-width: 768px) {
+  section, .section { padding: 3.5rem 0 }
+}
+
+@media (min-width: 992px) {
+  section, .section { padding: 4rem 0 }
+}
+
+section > div.container {
+  position: relative; /* so that if we use a cover image, the content will display on top */
+}
