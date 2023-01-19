@@ -7,9 +7,9 @@ import HeroImage from '../images/backgrounds/hero-fd.jpg';
 import Certification from '../images/certification-ifdp.png';
 import BusinessIcon from '../images/icons/business-icon.svg';
 import CertificationIcon from '../images/icons/certification-icon.svg';
-import CostsIcon from '../images/icons/costs-icon.svg';
-import FeedbackIcon from '../images/icons/feedback-icon.svg';
+import ExpertIcon from '../images/icons/expert-icon.svg';
 import FlexibleIcon from '../images/icons/flexible-icon.svg';
+import HandsOnIcon from '../images/icons/hands-on-icon.svg';
 import LifetimeIcon from '../images/icons/lifetime-icon.svg';
 import { About } from '@/components/About';
 import { Card } from '@/components/Card';
@@ -91,12 +91,12 @@ const FloralDesignCourseCatalogPage: NextPage = () => {
         <p className="lead mb-4">QC&apos;s event &amp; wedding planning courses provide you with:</p>
         <div className="row">
           <div className="col-12 col-lg-4 mb-5 mb-lg-3">
-            <p><Image className="img-fluid" width="75" height="75" src={FeedbackIcon} alt="expert training" /></p>
+            <p><Image className="img-fluid" width="75" height="75" src={ExpertIcon} alt="expert training" /></p>
             <h3 className="h4">Expert Training</h3>
             <p className="mb-0">Learn from the industry's top floral designers.</p>
           </div>
           <div className="col-12 col-lg-4 mb-5 mb-lg-3">
-            <p><Image className="img-fluid" width="75" height="75" src={CostsIcon} alt="hand-on Experience" /></p>
+            <p><Image className="img-fluid" width="75" height="75" src={HandsOnIcon} alt="hand-on Experience" /></p>
             <h3 className="h4">Hand-on Experience</h3>
             <p className="mb-0">Learn at your own pace and create stunning arrangements from home.</p>
           </div>
