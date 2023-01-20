@@ -102,7 +102,7 @@ const FloralDesignCourseCatalogPage: NextPage = () => {
           </div>
           <div className="col-12 col-lg-4 mb-5 mb-lg-3">
             <p><Image className="img-fluid" width="75" height="75" src={LifetimeIcon} alt="ongoing support" /></p>
-            <h3 className="h4">Ongoing support</h3>
+            <h3 className="h4">Ongoing Support</h3>
             <p className="mb-0">Chat with your peers and get help from QC's support team seven days a week.</p>
           </div>
           <div className="col-12 col-lg-4 mb-5 mb-lg-0">
