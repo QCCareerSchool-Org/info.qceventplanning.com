@@ -60,7 +60,7 @@ const FloralDesignCourseCatalogPage: NextPage = () => {
         priority
         fill
         sizes="100vw"
-        style={{ objectFit: 'cover', objectPosition: '50% 0%' }}
+        style={{ objectFit: 'cover', objectPosition: '0% 50%' }}
       />
       <div className="container">
         {!lg && (
@@ -70,7 +70,7 @@ const FloralDesignCourseCatalogPage: NextPage = () => {
           <div id="brochureForm" className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
             <Card>
               <FormWrapper>
-                <h2 className="lead mb-4 fw-bold">Download the Free Course Catalog</h2>
+                <h2 className="h5 fw-bold mb-4">Download the Free Course Catalog</h2>
                 <Form action="https://go.qceventplanning.com/l/947642/2023-01-18/tflhv" />
               </FormWrapper>
             </Card>

@@ -43,7 +43,7 @@ export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 
       <div className="mb-3">
         <div className="form-check">
           <input type="checkbox" className="form-check-input" id={`emailOptIn${id}`} name="emailOptIn" />
-          <label className="form-check-label small" htmlFor={`emailOptIn${id}`}>I agree to receive additional emails from QC, including promotions, course launches, special offers and more. Unsubscribe anytime!</label>
+          <label className="form-check-label small fst-italic" htmlFor={`emailOptIn${id}`}>I agree to receive additional emails from QC, including promotions, course launches, special offers and more. Unsubscribe anytime!</label>
         </div>
       </div>
       <div className="mt-4">
