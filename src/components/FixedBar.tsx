@@ -20,7 +20,7 @@ export const FixedBar: FC = () => {
       <div id="fixedBar" className={`bg-black position-fixed w-100 ${show ? 'show' : 'hide'}`}>
         <div className="container d-flex align-items-center justify-content-center justify-content-sm-end small py-2 py-sm-0">
           <Image src={Logo} height="12" alt="QC Event Planning" style={{ display: 'block', flexShrink: 0, marginRight: 'auto' }} />
-          <div className="bg-primary py-1 py-sm-2 px-3"><a className="text-white text-decoration-none" href="#brochureForm"><strong>GET THE FREE CATALOG</strong></a></div>
+          <div className="bg-secondary py-1 py-sm-2 px-3"><a className="text-white text-decoration-none" href="#brochureForm"><strong>GET THE FREE CATALOG</strong></a></div>
         </div>
       </div>
 

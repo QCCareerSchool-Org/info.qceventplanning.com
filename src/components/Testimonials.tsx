@@ -1,8 +1,10 @@
+import Image from 'next/image';
 import type { FC } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 
+import Stars from '../images/5-stars.svg';
 import { TestimonialArrowNext } from './Testimonial-arrow-next';
 import { TestimonialArrowPrev } from './Testimonial-arrow-prev';
 
@@ -19,6 +21,9 @@ interface Props {
 
 export const Testimonials: FC<Props> = ({ data }) => (
   <div className="container-fluid text-center">
+    <div className="my-4">
+      <Image src={Stars} width="161" height="25" alt="5 stars" />
+    </div>
     <div className="d-flex justify-content-center">
       <div className="mb-4" style={{ width: '80%', maxWidth: 800 }}>
         <Slider dots={true} fade={true} prevArrow={<TestimonialArrowPrev />} nextArrow={<TestimonialArrowNext />}>

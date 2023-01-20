@@ -9,13 +9,13 @@ import BusinessIcon from '../images/icons/business-icon.svg';
 import CertificationIcon from '../images/icons/certification-icon.svg';
 import ExpertIcon from '../images/icons/expert-icon.svg';
 import FlexibleIcon from '../images/icons/flexible-icon.svg';
-import HandsOnIcon from '../images/icons/hands-on-icon.svg';
+import HandsOnIcon from '../images/icons/hands-on-icon-2.svg';
 import LifetimeIcon from '../images/icons/lifetime-icon.svg';
 import { About } from '@/components/About';
 import { Card } from '@/components/Card';
 import { Form } from '@/components/Form';
 import { FormWrapper } from '@/components/FormWrapper';
-import { GetStartedSection } from '@/components/GetStartedSection';
+import { GetStarted } from '@/components/GetStarted';
 import { SEO } from '@/components/SEO';
 import type { TestimonialData } from '@/components/Testimonials';
 import { Testimonials } from '@/components/Testimonials';
@@ -60,24 +60,24 @@ const FloralDesignCourseCatalogPage: NextPage = () => {
         priority
         fill
         sizes="100vw"
-        style={{ objectFit: 'cover', objectPosition: 'center' }}
+        style={{ objectFit: 'cover', objectPosition: '50% 0%' }}
       />
       <div className="container">
         {!lg && (
-          <h1 className="mb-5 text-center">Get a Free Floral Design<br />Course Catalog</h1>
+          <h1 className="mb-5 text-center text-shadow">Get a Free Floral Design<br />Course Catalog</h1>
         )}
         <div className="row align-items-center justify-content-center">
           <div id="brochureForm" className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
             <Card>
               <FormWrapper>
-                <h2 className="lead mb-4">Download the Free Course Catalog</h2>
+                <h2 className="lead mb-4 fw-bold">Download the Free Course Catalog</h2>
                 <Form action="https://go.qceventplanning.com/l/947642/2023-01-18/tflhv" />
               </FormWrapper>
             </Card>
           </div>
           {lg && (
             <div className="col-12 col-md-10 col-lg-6 col-xxl-5 text-start">
-              <h1>Get a Free Floral Design Course Catalog</h1>
+              <h1 className="text-shadow">Get a Free Floral Design Course Catalog</h1>
               <Image src={Arrow} alt="arrow" width="473" height="138" style={{ maxWidth: 320 }} />
             </div>
           )}
@@ -87,8 +87,8 @@ const FloralDesignCourseCatalogPage: NextPage = () => {
 
     <section className="bg-light">
       <div className="container text-center">
-        <h2>Join QC Event School</h2>
-        <p className="lead mb-4">QC&apos;s event &amp; wedding planning courses provide you with:</p>
+        <h2>Learning Floral Design Online Is Easy</h2>
+        <p className="lead mb-4">QC&apos;s Floral Design Course provides you with:</p>
         <div className="row">
           <div className="col-12 col-lg-4 mb-5 mb-lg-3">
             <p><Image className="img-fluid" width="75" height="75" src={ExpertIcon} alt="expert training" /></p>
@@ -97,7 +97,7 @@ const FloralDesignCourseCatalogPage: NextPage = () => {
           </div>
           <div className="col-12 col-lg-4 mb-5 mb-lg-3">
             <p><Image className="img-fluid" width="75" height="75" src={HandsOnIcon} alt="hand-on Experience" /></p>
-            <h3 className="h4">Hand-on Experience</h3>
+            <h3 className="h4">Hands-On Experience</h3>
             <p className="mb-0">Learn at your own pace and create stunning arrangements from home.</p>
           </div>
           <div className="col-12 col-lg-4 mb-5 mb-lg-3">
@@ -117,7 +117,7 @@ const FloralDesignCourseCatalogPage: NextPage = () => {
           </div>
           <div className="col-12 col-lg-4">
             <p><Image className="img-fluid" width="75" height="75" src={CertificationIcon} alt="professional certification" /></p>
-            <h3 className="h4">Professional certification</h3>
+            <h3 className="h4">Professional Certification</h3>
             <p className="mb-0">Earn a professional certification and the designation of International Floral Design Professional&trade; (IFDP&trade;).</p>
           </div>
         </div>
@@ -162,7 +162,7 @@ const FloralDesignCourseCatalogPage: NextPage = () => {
               <li>Open your own floral shop</li>
               <li>Sell arrangements online</li>
               <li>Work for an existing florist</li>
-              <li>Specilize in wedding and event florals</li>
+              <li>Specialize in wedding and event florals</li>
             </ul>
           </div>
         </div>
@@ -173,7 +173,18 @@ const FloralDesignCourseCatalogPage: NextPage = () => {
       <About courseName="floral design course" />
     </section>
 
-    <GetStartedSection />
+    <section className="bg-dark text-white text-center">
+      <Image
+        src={HeroImage}
+        alt="flower arrangement"
+        placeholder="blur"
+        priority
+        fill
+        sizes="100vw"
+        style={{ objectFit: 'cover', objectPosition: 'center' }}
+      />
+      <GetStarted />
+    </section>
   </>;
 };
 

@@ -7,7 +7,7 @@ import { About } from '@/components/About';
 import { Card } from '@/components/Card';
 import { Form } from '@/components/Form';
 import { FormWrapper } from '@/components/FormWrapper';
-import { GetStartedSection } from '@/components/GetStartedSection';
+import { GetStarted } from '@/components/GetStarted';
 import { HowTheCoursesWork } from '@/components/HowTheCoursesWork';
 import { SEO } from '@/components/SEO';
 import type { TestimonialData } from '@/components/Testimonials';
@@ -95,7 +95,18 @@ const EventCourseCatalogPage: NextPage = () => {
       <About courseName="event and wedding planning course" />
     </section>
 
-    <GetStartedSection />
+    <section className="bg-dark text-white text-center">
+      <Image
+        src={HeroImage}
+        alt="flower arrangement"
+        placeholder="blur"
+        priority
+        fill
+        sizes="100vw"
+        style={{ objectFit: 'cover', objectPosition: 'center' }}
+      />
+      <GetStarted />
+    </section>
   </>;
 };
 
