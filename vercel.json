@@ -3,11 +3,11 @@
     { "source": "/", "destination": "/free-floral-design-course-catalog" }
   ],
   "redirects": [
-    { "source": "/become-a-wedding-planner-ebook", "destination": "https://www.qceventplanning.com/free-event-course-catalog" },
+    { "source": "/become-a-wedding-planner-ebook", "destination": "https://www.qceventplanning.com/free-wedding-course-catalog" },
     { "source": "/become-an-event-planner-ebook", "destination": "https://www.qceventplanning.com/free-event-course-catalog" },
-    { "source": "/become-a-wedding-planner-ebook", "destination": "https://www.qceventplanning.com/free-event-course-catalog" },
+    { "source": "/become-a-wedding-planner-ebook", "destination": "https://www.qceventplanning.com/free-wedding-course-catalog" },
     { "source": "/free-event-course-catalog", "destination": "https://www.qceventplanning.com/free-event-course-catalog" },
     { "source": "/free-party-course-catalog", "destination": "https://www.qceventplanning.com/free-event-course-catalog" },
-    { "source": "/free-wedding-course-catalog", "destination": "https://www.qceventplanning.com/free-event-course-catalog" }
+    { "source": "/free-wedding-course-catalog", "destination": "https://www.qceventplanning.com/free-wedding-course-catalog" }
   ]
 }
