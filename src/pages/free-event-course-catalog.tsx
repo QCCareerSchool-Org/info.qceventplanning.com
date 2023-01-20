@@ -52,7 +52,7 @@ const EventCourseCatalogPage: NextPage = () => {
     <section id="top" className="bg-black text-white">
       <Image
         src={HeroImage}
-        alt="flower arrangement"
+        alt="banquet table"
         placeholder="blur"
         priority
         fill
@@ -61,20 +61,20 @@ const EventCourseCatalogPage: NextPage = () => {
       />
       <div className="container">
         {!desktop && (
-          <h1 className="mb-5 text-center">Get a Free Event &amp; Wedding Planning Course Catalog</h1>
+          <h1 className="mb-5 text-center text-shadow">Get a Free Event &amp; Wedding Planning Course Catalog</h1>
         )}
         <div className="row align-items-center justify-content-center">
           <div id="brochureForm" className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
             <Card>
               <FormWrapper>
-                <h2 className="lead mb-4">Download the Free Course Catalog</h2>
-                <Form action="https://go.qceventplanning.com/l/947642/2023-01-18/tflhv" />
+                <h2 className="h5 mb-4">Download the Free Course Catalog</h2>
+                <Form action="https://go.qceventplanning.com/l/947642/2022-02-15/8n8h7" />
               </FormWrapper>
             </Card>
           </div>
           {desktop && (
             <div className="col-12 col-md-10 col-lg-6 col-xxl-5 text-start">
-              <h1>Get a Free Event &amp; Wedding Planning Course Catalog</h1>
+              <h1 className="text-shadow">Get a Free Event &amp; Wedding Planning Course Catalog</h1>
               <Image src={Arrow} alt="arrow" width="473" height="138" style={{ maxWidth: 320 }} />
             </div>
           )}
@@ -98,7 +98,7 @@ const EventCourseCatalogPage: NextPage = () => {
     <section className="bg-dark text-white text-center">
       <Image
         src={HeroImage}
-        alt="flower arrangement"
+        alt="banquet table"
         placeholder="blur"
         priority
         fill
