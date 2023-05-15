@@ -5,6 +5,7 @@ import Arrow from '../images/arrow.svg';
 import CertificationBackground from '../images/backgrounds/certification-background-fd.jpg';
 import HeroImage from '../images/backgrounds/hero-ep.jpg';
 import Certification from '../images/certification-iepp.png';
+import GrowthIcon from '../images/growth-icon.svg';
 import { testimonialData } from './free-event-course-catalog-testimonials';
 import { About } from '@/components/About';
 import { Card } from '@/components/Card';
@@ -59,11 +60,28 @@ const EventCourseCatalogPage: NextPage = () => {
       </div>
     </section>
 
-    <HowTheCoursesWork />
+    <section className="bg-black text-white">
+      <div className="container text-center">
+        <div className="row justify-content-center">
+          <div className="col-12 col-lg-10 col-xl-8 text-center">
+            <div className="mb-2">
+              <Image src={GrowthIcon} width="48" height="48" alt="industry growth" />
+            </div>
+            <h2 className="h3">Join an industry that's expected to grow by 18% over the next 10 years*</h2>
+            <p className="lead">That's much faster than the average growth rate across all occupations!</p>
+            <p className="small">* US Bureau of Labor Statistics</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section>
+      <HowTheCoursesWork />
+    </section>
+
+    <section className="bg-light">
       <div className="container text-center">
-        <p className="lead">We&apos;ve already helped thousands of students and grads start their career in event and wedding planning!</p>
+        <p className="lead">We've already helped thousands of students and grads start their career in event and wedding planning!</p>
       </div>
       <Testimonials data={testimonialData} />
     </section>
