@@ -19,13 +19,15 @@ export const FixedBar: FC = () => {
     <>
       <div id="fixedBar" className={`bg-black position-fixed w-100 ${show ? 'show' : 'hide'}`}>
         <div className="container d-flex align-items-center justify-content-center justify-content-sm-end small py-2 py-sm-0">
-          <Image src={Logo} height="12" alt="QC Event Planning" style={{ display: 'block', flexShrink: 0, marginRight: 'auto' }} />
+          <div style={{ flexShrink: 0, marginRight: 'auto' }}>
+            <Image src={Logo} height="12" alt="QC Event Planning" style={{ display: 'block' }} />
+          </div>
           <div className="bg-secondary py-1 py-sm-2 px-3"><a className="text-white text-decoration-none" href="#brochureForm"><strong>GET THE FREE CATALOG</strong></a></div>
         </div>
       </div>
 
       <style jsx>{`
-      #fixedBar { opacity: 0; z-index: 2000; }
+      #fixedBar { opacity: 0; z-index: 500; }
       #fixedBar.show { opacity: 1; transition: opacity 500ms; }
       `}</style>
     </>
