@@ -1,12 +1,11 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 
-import Arrow from '../images/arrow.svg';
-import CertificationBackground from '../images/backgrounds/certification-background-fd.jpg';
-import HeroImage from '../images/backgrounds/hero-ep.jpg';
-import Certification from '../images/certification-iepp.png';
-import GrowthIcon from '../images/growth-icon.svg';
-import { testimonialData } from './free-event-course-catalog-testimonials';
+import Arrow from '../../images/arrow.svg';
+import GrowthIcon from '../../images/growth-icon.svg';
+import Certification from './certification-iepp.png';
+import HeroImage from './hero-ce.jpg';
+import { testimonialData } from './testimonials';
 import { About } from '@/components/About';
 import { Card } from '@/components/Card';
 import { Form } from '@/components/Form';
@@ -25,7 +24,7 @@ const EventCourseCatalogPage: NextPage = () => {
     <SEO
       title="Learn From the Top Online Event Planning School"
       description="Get a free course catalog from the top online event planning school to see how you can become a professional event planner"
-      canonical="https://info.qceventplanning.com/free-event-course-catalog"
+      canonical="https://info.qceventplanning.com/free-event-planning-course-catalog"
     />
     <section id="top" className="bg-black text-white">
       <Image
@@ -39,7 +38,7 @@ const EventCourseCatalogPage: NextPage = () => {
       />
       <div className="container">
         {!desktop && (
-          <h1 className="mb-5 text-center text-shadow">Get a Free Event &amp; Wedding Planning Course Catalog</h1>
+          <h1 className="mb-5 text-center text-shadow">Get a Free Event Planning Course Catalog</h1>
         )}
         <div className="row align-items-center justify-content-center">
           <div id="brochureForm" className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
@@ -52,7 +51,7 @@ const EventCourseCatalogPage: NextPage = () => {
           </div>
           {desktop && (
             <div className="col-12 col-md-10 col-lg-6 col-xxl-5 text-start">
-              <h1 className="text-shadow">Get a Free Event &amp; Wedding Planning Course Catalog</h1>
+              <h1 className="text-shadow">Get a Free Event Planning Course Catalog</h1>
               <Image src={Arrow} alt="arrow" width="473" height="138" style={{ maxWidth: 320 }} />
             </div>
           )}
@@ -88,8 +87,8 @@ const EventCourseCatalogPage: NextPage = () => {
 
     <section className="bg-dark text-light">
       <Image
-        src={CertificationBackground}
-        alt="flower arrangement"
+        src={HeroImage}
+        alt="banquet table"
         placeholder="blur"
         priority
         fill

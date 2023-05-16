@@ -1,10 +1,11 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 
-import Arrow from '../images/arrow.svg';
-import HeroImage from '../images/backgrounds/hero-ep.jpg';
-import GrowthIcon from '../images/growth-icon.svg';
-import { testimonialData } from './free-event-course-catalog-testimonials';
+import Arrow from '../../images/arrow.svg';
+import GrowthIcon from '../../images/growth-icon.svg';
+import Certification from './certification-iewp.png';
+import HeroImage from './hero-ep.jpg';
+import { testimonialData } from './testimonials';
 import { About } from '@/components/About';
 import { Card } from '@/components/Card';
 import { Form } from '@/components/Form';
@@ -22,8 +23,8 @@ const EventCourseCatalogPage: NextPage = () => {
   return <>
     <SEO
       title="Learn From the Top Online Event Planning School"
-      description="Get a free course catalog from the top online event planning school to see how you can become a professional event planner"
-      canonical="https://info.qceventplanning.com/free-event-course-catalog"
+      description="Get a free course catalog from the top online event planning school to see how you can become a professional event and wedding planner"
+      canonical="https://info.qceventplanning.com/free-event-and-wedding-planning-course-catalog"
     />
     <section id="top" className="bg-black text-white">
       <Image
@@ -44,7 +45,7 @@ const EventCourseCatalogPage: NextPage = () => {
             <Card>
               <FormWrapper>
                 <h2 className="h5 fw-bold mb-4">Download the Free Course Catalog</h2>
-                <Form action="https://go.qceventplanning.com/l/947642/2022-02-15/8n8h7" telephoneNumber />
+                <Form action="https://go.qceventplanning.com/l/947642/2022-02-15/8n8h7" />
               </FormWrapper>
             </Card>
           </div>
@@ -82,6 +83,44 @@ const EventCourseCatalogPage: NextPage = () => {
         <p className="lead">We've already helped thousands of students and grads start their career in event and wedding planning!</p>
       </div>
       <Testimonials data={testimonialData} />
+    </section>
+
+    <section className="bg-dark text-light">
+      <Image
+        src={HeroImage}
+        alt="banquet table"
+        placeholder="blur"
+        priority
+        fill
+        sizes="100vw"
+        style={{ objectFit: 'cover', objectPosition: 'center' }}
+      />
+      <div className="container">
+        <div className="row align-items-center justify-content-center">
+          <div className="col-12 col-md-8 col-lg-6 col-xxl-4 offset-xxl-1 text-center">
+            <Image
+              src={Certification}
+              width="1038"
+              height="604"
+              alt="IFDP certification"
+              className="img-fluid"
+            />
+          </div>
+          <div className="col-12 col-md-10 col-lg-6 offset-xxl-1">
+            <h2>Your Event &amp; Wedding Planning Certification</h2>
+            <p>Once you've completed your course online, you'll receive your certification and professional designation. Use these to market yourself as a certified event and wedding planner.</p>
+            <p>This certification demonstrates that you have successfully completed professional event and wedding planner training and that you possess all the skills and knowledge required to plan, design, and execute flawless private and corporate events.</p>
+            <h3 className="h5">Your Certification Has Many Benefits</h3>
+            <ul className="mb-0">
+              <li>Start your own event and wedding planning business</li>
+              <li>Provide coordination & vendor outreach services to clients</li>
+              <li>Work for an existing event or wedding planning company</li>
+              <li>Work for a corporation planning meetings and external events</li>
+              <li>Plan events for venues, hotels, restaurants, and more!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section>
