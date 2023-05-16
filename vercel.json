@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/free-event-course-catalog" }
+    { "source": "/", "destination": "/free-event-and-wedding-planning-course-catalog" }
   ],
   "redirects": [
     { "source": "/free-event-course-catalog", "destination": "/free-event-and-wedding-planning-course-catalog" },
