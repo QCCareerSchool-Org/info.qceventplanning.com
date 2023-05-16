@@ -4,7 +4,7 @@ import type { ReactElement } from 'react';
 import { jsonLdScriptProps } from 'react-schemaorg';
 import type { EducationalOrganization } from 'schema-dts';
 
-import { qcEventSchoolEducationalOrganization } from 'qcEventSchoolEducationalOrganization';
+import { qcEventSchoolEducationalOrganization } from '../qcEventSchoolEducationalOrganization';
 
 type TwitterCardType = 'card' | 'summary_large_image';
 type SchemaType = 'WebPage' | 'AboutPage' | 'CheckoutPage' | 'CollectionPage' | 'ContactPage' | 'FAQPage' | 'ItemPage' | 'MedicalWebPage' | 'ProfilePage' | 'QAPage' | 'RealEstateListing' | 'SearchResultsPage';
