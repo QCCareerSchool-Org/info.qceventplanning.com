@@ -15,7 +15,6 @@ type State = {
   telephoneNumber: string;
   smsOptIn: boolean;
   telephoneError: boolean;
-  telephoneErrorMessage?: string;
 };
 
 type Action =
@@ -26,21 +25,17 @@ const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'TELEPHONE_NUMBER_CHANGED': {
       let telephoneError = false;
-      let telephoneErrorMessage: string | undefined = undefined;
       if (state.smsOptIn && action.payload.length === 0) {
         telephoneError = true;
-        telephoneErrorMessage = 'You have opted into getting text messages. A telephone number is required.';
       }
-      return { ...state, telephoneNumber: action.payload, telephoneError, telephoneErrorMessage };
+      return { ...state, telephoneNumber: action.payload, telephoneError };
     }
     case 'SMS_OPT_IN_CHANGED': {
       let telephoneError = false;
-      let telephoneErrorMessage: string | undefined = undefined;
       if (state.telephoneNumber.length === 0 && action.payload) {
         telephoneError = true;
-        telephoneErrorMessage = 'You have opted into getting text messages. A telephone number is required.';
       }
-      return { ...state, smsOptIn: action.payload, telephoneError, telephoneErrorMessage };
+      return { ...state, smsOptIn: action.payload, telephoneError };
     }
   }
 };
@@ -91,9 +86,8 @@ export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 
       </div>
       {telephoneNumber && (
         <div className="mb-3">
-          <label htmlFor={`telephoneNumber${id}`}>Phone Number</label>
-          <input ref={telephoneNumberRef} onChange={handleTelephoneNumberChange} value={state.telephoneNumber} type="tel" name="telephoneNumber" id={`telephoneNumber${id}`} className={`form-control ${state.telephoneError ? 'is-invalid' : ''}`} autoCapitalize="off" autoComplete="tel" />
-          {state.telephoneErrorMessage && <div className="invalid-feedback">{state.telephoneErrorMessage}</div>}
+          <label htmlFor={`telephoneNumber${id}`}>Phone Number {state.smsOptIn && <> <span className="text-primary">*</span></>}</label>
+          <input ref={telephoneNumberRef} onChange={handleTelephoneNumberChange} value={state.telephoneNumber} type="tel" name="telephoneNumber" id={`telephoneNumber${id}`} className="form-control" autoCapitalize="off" autoComplete="tel" required={state.smsOptIn} />
         </div>
       )}
       <div className="mb-3">

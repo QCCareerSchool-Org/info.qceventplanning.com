@@ -4,4 +4,4 @@ type Props = {
   children: ReactNode;
 };
 
-export const FormWrapper: FC<Props> = ({ children }) => <div className="p-sm-4">{children}</div>;
+export const FormWrapper: FC<Props> = ({ children }) => <div className="p-sm-3">{children}</div>;

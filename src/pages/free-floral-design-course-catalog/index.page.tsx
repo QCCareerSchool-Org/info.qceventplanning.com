@@ -1,17 +1,17 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 
-import Arrow from '../images/arrow.svg';
-import CertificationBackground from '../images/backgrounds/certification-background-fd.jpg';
-import HeroImage from '../images/backgrounds/hero-fd.jpg';
-import Certification from '../images/certification-ifdp.png';
-import BusinessIcon from '../images/icons/business-icon.svg';
-import CertificationIcon from '../images/icons/certification-icon.svg';
-import ExpertIcon from '../images/icons/expert-icon.svg';
-import FlexibleIcon from '../images/icons/flexible-icon.svg';
-import HandsOnIcon from '../images/icons/hands-on-icon-2.svg';
-import LifetimeIcon from '../images/icons/lifetime-icon.svg';
-import { testimonialData } from './free-floral-design-course-catalog-testimonials';
+import Arrow from '../../images/arrow.svg';
+import BusinessIcon from '../../images/icons/business-icon.svg';
+import CertificationIcon from '../../images/icons/certification-icon.svg';
+import ExpertIcon from '../../images/icons/expert-icon.svg';
+import FlexibleIcon from '../../images/icons/flexible-icon.svg';
+import HandsOnIcon from '../../images/icons/hands-on-icon-2.svg';
+import LifetimeIcon from '../../images/icons/lifetime-icon.svg';
+import CertificationBackground from './certification-background-fd.jpg';
+import Certification from './certification-ifdp.png';
+import HeroImage from './hero-fd.jpg';
+import { testimonialData } from './testimonials';
 import { About } from '@/components/About';
 import { Card } from '@/components/Card';
 import { Form } from '@/components/Form';

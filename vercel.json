@@ -3,6 +3,7 @@
     { "source": "/", "destination": "/free-event-course-catalog" }
   ],
   "redirects": [
+    { "source": "/free-event-course-catalog", "destination": "/free-event-and-wedding-planning-course-catalog" },
     { "source": "/become-a-wedding-planner-ebook", "destination": "/free-event-course-catalog" },
     { "source": "/become-an-event-planner-ebook", "destination": "/free-event-course-catalog" },
     { "source": "/become-a-wedding-planner-ebook", "destination": "/free-event-course-catalog" },
