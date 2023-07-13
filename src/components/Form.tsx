@@ -9,6 +9,10 @@ type Props = {
   telephoneNumber?: boolean;
   buttonText?: string;
   buttonClass?: string;
+  hiddenFields?: Array<{
+    key: string;
+    value: string | number;
+  }>;
 };
 
 type State = {
@@ -42,10 +46,9 @@ const reducer = (state: State, action: Action): State => {
 
 const initialState: State = { telephoneNumber: '', smsOptIn: false, telephoneError: false };
 
-export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 'Get the Catalog', buttonClass = 'btn btn-primary' }) => {
+export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 'Get the Catalog', buttonClass = 'btn btn-primary', hiddenFields }) => {
   const id = useId();
   const geoLocation = useGeoLocationContext();
-  const testGroupId = useRef(getRandomIntInclusive(1, 12));
 
   const telephoneNumberRef = useRef<HTMLInputElement>(null);
 
@@ -69,7 +72,9 @@ export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 
   return (
     <form onSubmit={handleSubmit} id={`form${id}`} method="post" action={action}>
       <input type="hidden" name="school" value="QC Makeup Academy" />
-      <input type="hidden" name="testGroup" value={testGroupId.current} />
+      {hiddenFields?.map(h => (
+        <input key={h.key} type="hidden" name={h.key} value={h.value} />
+      ))}
       <input type="hidden" name="countryCode" value={geoLocation.countryCode} />
       <input type="hidden" name="provinceCode" value={geoLocation.provinceCode ?? ''} />
       <div className="mb-3">
