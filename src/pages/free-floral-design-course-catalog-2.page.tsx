@@ -1,6 +1,7 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 
+import { useMemo } from 'react';
 import Arrow from '../images/arrow.svg';
 import BusinessIcon from '../images/icons/business-icon.svg';
 import CertificationIcon from '../images/icons/certification-icon.svg';
@@ -20,8 +21,26 @@ import { GetStarted } from '@/components/GetStarted';
 import { SEO } from '@/components/SEO';
 import { Testimonials } from '@/components/Testimonials';
 import { useScreenWidthContext } from '@/hooks/useScreenWidthContext';
+import { getRandomIntInclusive } from 'lib/randomInt';
 
-const FloralDesignCourseCatalogPage: NextPage = () => {
+type Props = {
+  testGroup: number;
+  gclid: string | null;
+  msclkid: string | null;
+};
+
+const FloralDesignCourseCatalogPage: NextPage<Props> = ({ testGroup, gclid, msclkid }) => {
+  const hiddenFields = useMemo(() => {
+    const h: Array<{ key: string; value: string | number }> = [ { key: 'testGroup', value: testGroup } ];
+    if (gclid) {
+      h.push({ key: 'gclid', value: gclid });
+    }
+    if (msclkid) {
+      h.push({ key: 'msclkid', value: msclkid });
+    }
+    return h;
+  }, [ testGroup, gclid, msclkid ]);
+
   const screenWidth = useScreenWidthContext();
   const lg = screenWidth >= 992;
 
@@ -50,7 +69,7 @@ const FloralDesignCourseCatalogPage: NextPage = () => {
             <Card>
               <FormWrapper>
                 <h2 className="h5 fw-bold mb-4">Download the Free Course Catalog</h2>
-                <Form action="https://go.qceventplanning.com/l/947642/2023-01-18/tflhv" telephoneNumber />
+                <Form action="https://go.qceventplanning.com/l/947642/2023-01-18/tflhv" telephoneNumber hiddenFields={hiddenFields} />
               </FormWrapper>
             </Card>
           </div>
@@ -165,6 +184,28 @@ const FloralDesignCourseCatalogPage: NextPage = () => {
       <GetStarted />
     </section>
   </>;
+};
+
+// eslint-disable-next-line @typescript-eslint/require-await
+export const getServerSideProps: GetServerSideProps<Props> = async context => {
+  let testGroup: number | undefined;
+  const storedTestGroup = context.req.cookies.testGroup;
+  if (typeof storedTestGroup !== 'undefined') {
+    const parsed = parseInt(storedTestGroup, 10);
+    if (!isNaN(parsed)) {
+      testGroup = parsed;
+    }
+  }
+  if (typeof testGroup === 'undefined') {
+    testGroup = getRandomIntInclusive(1, 12);
+    const maxAge = 60 * 60 * 24 * 365;
+    context.res.setHeader('Set-Cookie', `testGroup=${testGroup}; Max-Age=${maxAge}; Path=/; Secure; SameSite=Strict`);
+  }
+
+  const gclid = typeof context.query.gclid === 'string' ? context.query.gclid : null;
+  const msclkid = typeof context.query.msclkid === 'string' ? context.query.msclkid : null;
+
+  return { props: { testGroup, gclid, msclkid } };
 };
 
 export default FloralDesignCourseCatalogPage;
