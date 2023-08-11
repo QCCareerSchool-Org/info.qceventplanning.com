@@ -1,8 +1,8 @@
 import type { ChangeEventHandler, FC, FormEventHandler } from 'react';
 import { useId, useReducer, useRef } from 'react';
 
-import { getRandomIntInclusive } from '../lib/randomInt';
 import { useGeoLocationContext } from '@/hooks/useGeoLocationContext';
+import { addLead } from 'lib/leads';
 
 type Props = {
   action: string;
@@ -13,6 +13,23 @@ type Props = {
     key: string;
     value: string | number;
   }>;
+  marketing: {
+    source: string | null;
+    medium: string | null;
+    campaign: string | null;
+    content: string | null;
+    term: string | null;
+  } | null;
+  courses?: string[];
+  initialValues?: {
+    firstName: string | null;
+    lastName: string | null;
+    emailAddress: string | null;
+    emailOptIn: boolean | null;
+    telephoneNumber: string | null;
+    smsOptIn: boolean | null;
+  };
+  errors?: boolean;
 };
 
 type State = {
@@ -46,11 +63,24 @@ const reducer = (state: State, action: Action): State => {
 
 const initialState: State = { telephoneNumber: '', smsOptIn: false, telephoneError: false };
 
-export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 'Get the Catalog', buttonClass = 'btn btn-primary', hiddenFields }) => {
+const getHiddenField = (name: string, hiddenFields?: Array<{ key: string; value: string | number }>): string | number | null => {
+  return hiddenFields?.find(({ key }) => key === name)?.value ?? null;
+};
+
+export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 'Get the Catalog', buttonClass = 'btn btn-primary', hiddenFields, marketing, courses, initialValues, errors }) => {
   const id = useId();
   const geoLocation = useGeoLocationContext();
 
+  const submitting = useRef(false);
+
+  const formRef = useRef<HTMLFormElement>(null);
+  const schoolRef = useRef<HTMLInputElement>(null);
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const emailAddressRef = useRef<HTMLInputElement>(null);
   const telephoneNumberRef = useRef<HTMLInputElement>(null);
+  const emailOptInRef = useRef<HTMLInputElement>(null);
+  const smsOptInRef = useRef<HTMLInputElement>(null);
 
   const [ state, dispatch ] = useReducer(reducer, initialState);
 
@@ -63,15 +93,55 @@ export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 
   };
 
   const handleSubmit: FormEventHandler = e => {
-    if (state.telephoneError) {
-      e.preventDefault();
-      telephoneNumberRef.current?.focus();
+    e.preventDefault();
+
+    if (submitting.current) {
+      return;
     }
+
+    if (state.telephoneError) {
+      telephoneNumberRef.current?.focus();
+      return;
+    }
+
+    if (!formRef.current || !schoolRef.current || !emailAddressRef.current || !firstNameRef.current || !lastNameRef.current) {
+      return;
+    }
+
+    const form = formRef.current;
+
+    const testGroup = getHiddenField('testGroup', hiddenFields);
+    const gclid = getHiddenField('gclid', hiddenFields);
+    const msclkid = getHiddenField('msclkid', hiddenFields);
+
+    submitting.current = true;
+
+    addLead({
+      school: schoolRef.current.value,
+      emailAddress: emailAddressRef.current.value,
+      firstName: firstNameRef.current.value || null,
+      lastName: lastNameRef.current.value || null,
+      telephoneNumber: telephoneNumberRef.current?.value || null, // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
+      emailOptIn: emailOptInRef.current?.checked ?? null,
+      smsOptIn: smsOptInRef.current?.checked ?? null,
+      countryCode: geoLocation?.countryCode ?? null,
+      provinceCode: geoLocation?.provinceCode ?? null,
+      testGroup: typeof testGroup === 'string' ? parseInt(testGroup, 10) : testGroup,
+      gclid: typeof gclid === 'number' ? gclid.toString() : gclid,
+      msclkid: typeof msclkid === 'number' ? msclkid.toString() : msclkid,
+      marketing: marketing ?? undefined,
+      courses: courses,
+    }).catch(err => {
+      console.error('Error adding lead', err);
+    }).finally(() => {
+      form.submit();
+      submitting.current = false;
+    });
   };
 
   return (
-    <form onSubmit={handleSubmit} id={`form${id}`} method="post" action={action}>
-      <input type="hidden" name="school" value="QC Makeup Academy" />
+    <form ref={formRef} onSubmit={handleSubmit} id={`form${id}`} method="post" action={action}>
+      <input ref={schoolRef} type="hidden" name="school" value="QC Makeup Academy" />
       {hiddenFields?.map(h => (
         <input key={h.key} type="hidden" name={h.key} value={h.value} />
       ))}
@@ -79,31 +149,31 @@ export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 
       <input type="hidden" name="provinceCode" value={geoLocation.provinceCode ?? ''} />
       <div className="mb-3">
         <label htmlFor={`firstName${id}`}>First Name</label>
-        <input type="text" name="firstName" id={`firstName${id}`} className="form-control" autoCapitalize="words" autoComplete="given-name" />
+        <input ref={firstNameRef} type="text" name="firstName" id={`firstName${id}`} className="form-control" autoCapitalize="words" autoComplete="given-name" defaultValue={initialValues?.firstName ?? ''} />
       </div>
       <div className="mb-3">
         <label htmlFor={`lastName${id}`}>Last Name</label>
-        <input type="text" name="lastName" id={`lastName${id}`} className="form-control" autoCapitalize="words" autoComplete="family-name" />
+        <input ref={lastNameRef} type="text" name="lastName" id={`lastName${id}`} className="form-control" autoCapitalize="words" autoComplete="family-name" defaultValue={initialValues?.lastName ?? ''} />
       </div>
       <div className="mb-3">
         <label htmlFor={`emailAddress${id}`}>Email Address <span className="text-primary">*</span></label>
-        <input type="email" name="emailAddress" id={`emailAddress${id}`} className="form-control" autoCapitalize="off" autoComplete="email" required />
+        <input ref={emailAddressRef} type="email" name="emailAddress" id={`emailAddress${id}`} className="form-control" autoCapitalize="off" autoComplete="email" required defaultValue={initialValues?.emailAddress ?? ''} />
       </div>
       {telephoneNumber && (
         <div className="mb-3">
           <label htmlFor={`telephoneNumber${id}`}>Phone Number {state.smsOptIn && <> <span className="text-primary">*</span></>}</label>
-          <input ref={telephoneNumberRef} onChange={handleTelephoneNumberChange} value={state.telephoneNumber} type="tel" name="telephoneNumber" id={`telephoneNumber${id}`} className="form-control" autoCapitalize="off" autoComplete="tel" required={state.smsOptIn} />
+          <input ref={telephoneNumberRef} onChange={handleTelephoneNumberChange} value={state.telephoneNumber} type="tel" name="telephoneNumber" id={`telephoneNumber${id}`} className="form-control" autoCapitalize="off" autoComplete="tel" required={state.smsOptIn} defaultValue={initialValues?.telephoneNumber ?? ''} />
         </div>
       )}
       <div className="mb-3">
         <div className="form-check">
-          <input type="checkbox" className="form-check-input" id={`emailOptIn${id}`} name="emailOptIn" value="Yes" />
+          <input ref={emailOptInRef} type="checkbox" className="form-check-input" id={`emailOptIn${id}`} name="emailOptIn" value="Yes" defaultChecked={initialValues?.emailOptIn ?? false} />
           <label className="form-check-label small fst-italic" htmlFor={`emailOptIn${id}`}>I agree to receive additional emails from QC, including promotions, course launches, special offers and more. Unsubscribe anytime!</label>
         </div>
         {telephoneNumber && (
           <div className="mt-2">
             <div className="form-check">
-              <input onChange={handleSMSOptInChange} checked={state.smsOptIn} type="checkbox" className="form-check-input" id={`smsOptIn${id}`} name="smsOptIn" value="yes" />
+              <input ref={smsOptInRef} onChange={handleSMSOptInChange} checked={state.smsOptIn} type="checkbox" className="form-check-input" id={`smsOptIn${id}`} name="smsOptIn" value="yes" defaultChecked={initialValues?.smsOptIn ?? false} />
               <label className="form-check-label small fst-italic" htmlFor={`smsOptIn${id}`}>Text me with news and offers.</label>
             </div>
           </div>
