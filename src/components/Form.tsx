@@ -141,7 +141,7 @@ export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} id={`form${id}`} method="post" action={action}>
-      <input ref={schoolRef} type="hidden" name="school" value="QC Makeup Academy" />
+      <input ref={schoolRef} type="hidden" name="school" value="QC Event School" />
       {hiddenFields?.map(h => (
         <input key={h.key} type="hidden" name={h.key} value={h.value} />
       ))}
