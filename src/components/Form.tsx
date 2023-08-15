@@ -139,8 +139,10 @@ export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 
       });
     }).catch(err => {
       console.error('Error adding lead', err);
-    }).finally(() => {
+    }).then(async () => {
       form.submit();
+      return new Promise(res => setTimeout(res, 3000));
+    }).finally(() => {
       submitting.current = false;
     });
   };
