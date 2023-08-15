@@ -1,6 +1,7 @@
 import type { ChangeEventHandler, FC, FormEventHandler } from 'react';
 import { useId, useReducer, useRef } from 'react';
 
+import { Spinner } from './Spinner';
 import { useGeoLocationContext } from '@/hooks/useGeoLocationContext';
 import { addLead } from 'lib/leads';
 
@@ -33,17 +34,24 @@ type Props = {
 };
 
 type State = {
+  formSubmitting: boolean;
   telephoneNumber: string;
   smsOptIn: boolean;
   telephoneError: boolean;
 };
 
 type Action =
+  | { type: 'FORM_SUBMITTED' }
+  | { type: 'FORM_COMPLETED' }
   | { type: 'TELEPHONE_NUMBER_CHANGED'; payload: string }
   | { type: 'SMS_OPT_IN_CHANGED'; payload: boolean };
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
+    case 'FORM_SUBMITTED':
+      return { ...state, formSubmitting: true };
+    case 'FORM_COMPLETED':
+      return { ...state, formSubmitting: false };
     case 'TELEPHONE_NUMBER_CHANGED': {
       let telephoneError = false;
       if (state.smsOptIn && action.payload.length === 0) {
@@ -61,11 +69,13 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-const initialState: State = { telephoneNumber: '', smsOptIn: false, telephoneError: false };
+const initialState: State = { formSubmitting: false, telephoneNumber: '', smsOptIn: false, telephoneError: false };
 
 const getHiddenField = (name: string, hiddenFields?: Array<{ key: string; value: string | number }>): string | number | null => {
   return hiddenFields?.find(({ key }) => key === name)?.value ?? null;
 };
+
+const disabledTimeout = 5000;
 
 export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 'Get the Catalog', buttonClass = 'btn btn-primary', hiddenFields, marketing, courses, initialValues, errors }) => {
   const id = useId();
@@ -108,6 +118,8 @@ export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 
       return;
     }
 
+    dispatch({ type: 'FORM_SUBMITTED' });
+
     const form = formRef.current;
     const schoolInput = schoolRef.current;
     const emailAddressInput = emailAddressRef.current;
@@ -141,8 +153,9 @@ export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 
       console.error('Error adding lead', err);
     }).then(async () => {
       form.submit();
-      return new Promise(res => setTimeout(res, 3000));
+      return new Promise(res => setTimeout(res, disabledTimeout));
     }).finally(() => {
+      dispatch({ type: 'FORM_COMPLETED' });
       submitting.current = false;
     });
   };
@@ -188,7 +201,10 @@ export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 
         )}
       </div>
       <div className="mt-4">
-        <button className={buttonClass}>{buttonText}</button>
+        <div className="d-flex align-items-center">
+          <button className={buttonClass} disabled={state.formSubmitting}>{buttonText}</button>
+          {state.formSubmitting && <div className="ms-2"><Spinner /></div>}
+        </div>
       </div>
     </form>
   );
