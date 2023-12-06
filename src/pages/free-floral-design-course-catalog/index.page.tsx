@@ -86,7 +86,7 @@ const FloralDesignCourseCatalogPage: NextPage<Props> = ({ firstName, lastName, e
               <FormWrapper>
                 <h2 className="h5 fw-bold mb-4">Download the Free Course Catalog</h2>
                 <Form
-                  action="https://go.qceventplanning.com/l/947642/2023-01-18/tflhv"
+                  action="https://captcha.qccareerschool.com/8cb2c16d-947c-11ee-847e-bc764e017ab0"
                   hiddenFields={hiddenFields}
                   marketing={marketing}
                   courses={courses}
