@@ -5,7 +5,7 @@ import { GeoLocationProvider } from './GeoLocationProvider';
 import { ScreenWidthProvider } from './ScreenWidthProvider';
 import { ScrollPositionProvider } from './ScrollPositionProvider';
 
-const reCaptchaKey = process.env.RECAPTCHA_KEY;
+const reCaptchaKey = process.env.NEXT_PUBLIC_RECAPTCHA_KEY;
 
 export const Provider: FC<PropsWithChildren> = ({ children }) => (
   <CaptchaProvider reCaptchaKey={reCaptchaKey}>
