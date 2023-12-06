@@ -1,6 +1,7 @@
 import type { ChangeEventHandler, FC, FormEventHandler } from 'react';
-import { useId, useReducer, useRef } from 'react';
+import { useCallback, useId, useReducer, useRef, useState } from 'react';
 
+import { GoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { Spinner } from './Spinner';
 import { useGeoLocationContext } from '@/hooks/useGeoLocationContext';
 import { addLead } from 'lib/leads';
@@ -80,7 +81,8 @@ const disabledTimeout = 5000;
 export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 'Get the Catalog', buttonClass = 'btn btn-primary', hiddenFields, marketing, courses, initialValues, errors }) => {
   const id = useId();
   const geoLocation = useGeoLocationContext();
-
+  const [ token, setToken ] = useState<string>();
+  const [ refreshReCaptcha, setRefreshReCaptcha ] = useState(false);
   const submitting = useRef(false);
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -93,6 +95,10 @@ export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 
   const smsOptInRef = useRef<HTMLInputElement>(null);
 
   const [ state, dispatch ] = useReducer(reducer, initialState);
+
+  const handleVerify = useCallback((t: string): void => {
+    setToken(t);
+  }, []);
 
   const handleTelephoneNumberChange: ChangeEventHandler<HTMLInputElement> = e => {
     dispatch({ type: 'TELEPHONE_NUMBER_CHANGED', payload: e.target.value });
@@ -117,6 +123,8 @@ export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 
     if (!formRef.current || !schoolRef.current || !emailAddressRef.current || !firstNameRef.current || !lastNameRef.current) {
       return;
     }
+
+    setRefreshReCaptcha(r => !r);
 
     dispatch({ type: 'FORM_SUBMITTED' });
 
@@ -166,6 +174,7 @@ export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 
       {hiddenFields?.map(h => (
         <input key={h.key} type="hidden" name={h.key} value={h.value} />
       ))}
+      <input type="hidden" name="g-recaptcha-response" value={token} />
       <input type="hidden" name="countryCode" value={geoLocation.countryCode} />
       <input type="hidden" name="provinceCode" value={geoLocation.provinceCode ?? ''} />
       <div className="mb-3">
@@ -206,6 +215,7 @@ export const Form: FC<Props> = ({ action, telephoneNumber = false, buttonText = 
           {state.formSubmitting && <div className="ms-2"><Spinner /></div>}
         </div>
       </div>
+      <GoogleReCaptcha onVerify={handleVerify} refreshReCaptcha={refreshReCaptcha} />
     </form>
   );
 };
