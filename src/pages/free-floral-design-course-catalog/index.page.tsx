@@ -1,7 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 
-import { useMemo } from 'react';
 import Arrow from '../../images/arrow.svg';
 import BusinessIcon from '../../images/icons/business-icon.svg';
 import CertificationIcon from '../../images/icons/certification-icon.svg';
@@ -14,24 +13,16 @@ import Certification from './certification-ifdp.png';
 import HeroImage from './hero-fd.jpg';
 import { testimonialData } from './testimonials';
 import { About } from '@/components/About';
+import { BrevoForm } from '@/components/brevoForm';
 import { Card } from '@/components/Card';
-import { Form } from '@/components/Form';
 import { FormWrapper } from '@/components/FormWrapper';
 import { GetStarted } from '@/components/GetStarted';
 import { SEO } from '@/components/SEO';
 import { Testimonials } from '@/components/Testimonials';
+import { useGeoLocationContext } from '@/hooks/useGeoLocationContext';
 import { useScreenWidthContext } from '@/hooks/useScreenWidthContext';
-import { getRandomIntInclusive } from 'lib/randomInt';
 
 type Props = {
-  firstName: string | null;
-  lastName: string | null;
-  emailAddress: string | null;
-  emailOptIn: boolean | null;
-  telephoneNumber: string | null;
-  smsOptIn: boolean | null;
-  errors: boolean;
-  testGroup: number;
   gclid: string | null;
   msclkid: string | null;
   marketing: {
@@ -43,20 +34,11 @@ type Props = {
   };
 };
 
-const courses = [ 'fd' ];
+const brevoListId = 12;
+const brevoEmailTemplateId = 32;
 
-const FloralDesignCourseCatalogPage: NextPage<Props> = ({ firstName, lastName, emailAddress, emailOptIn, telephoneNumber, smsOptIn, errors, testGroup, gclid, msclkid, marketing }) => {
-  const hiddenFields = useMemo(() => {
-    const h: Array<{ key: string; value: string | number }> = [ { key: 'testGroup', value: testGroup } ];
-    if (gclid) {
-      h.push({ key: 'gclid', value: gclid });
-    }
-    if (msclkid) {
-      h.push({ key: 'msclkid', value: msclkid });
-    }
-    return h;
-  }, [ testGroup, gclid, msclkid ]);
-
+const FloralDesignCourseCatalogPage: NextPage<Props> = ({ gclid, msclkid, marketing }) => {
+  const geoLocation = useGeoLocationContext();
   const screenWidth = useScreenWidthContext();
   const lg = screenWidth >= 992;
 
@@ -85,13 +67,20 @@ const FloralDesignCourseCatalogPage: NextPage<Props> = ({ firstName, lastName, e
             <Card>
               <FormWrapper>
                 <h2 className="h5 fw-bold mb-4">Download the Free Course Catalog</h2>
-                <Form
-                  action="https://captcha.qccareerschool.com/8cb2c16d-947c-11ee-847e-bc764e017ab0"
-                  hiddenFields={hiddenFields}
-                  marketing={marketing}
-                  courses={courses}
-                  initialValues={{ firstName, lastName, emailAddress, emailOptIn, telephoneNumber, smsOptIn }}
-                  errors={errors}
+                <BrevoForm
+                  successLocation="https://www.qceventplanning.com/thank-you-floral-design-course-catalog"
+                  listId={brevoListId}
+                  emailTemplateId={brevoEmailTemplateId}
+                  countryCode={geoLocation.countryCode}
+                  provinceCode={geoLocation.provinceCode}
+                  gclid={gclid ?? undefined}
+                  msclkid={msclkid ?? undefined}
+                  utmSource={marketing?.source ?? undefined}
+                  utmMedium={marketing?.medium ?? undefined}
+                  utmCampaign={marketing?.campaign ?? undefined}
+                  utmContent={marketing?.content ?? undefined}
+                  utmTerm={marketing?.term ?? undefined}
+                  placeholders
                 />
               </FormWrapper>
             </Card>
@@ -211,29 +200,6 @@ const FloralDesignCourseCatalogPage: NextPage<Props> = ({ firstName, lastName, e
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getServerSideProps: GetServerSideProps<Props> = async context => {
-  const firstName = typeof context.query.firstName === 'string' ? context.query.firstName : null;
-  const lastName = typeof context.query.lastName === 'string' ? context.query.lastName : null;
-  const emailAddress = typeof context.query.emailAddress === 'string' ? context.query.emailAddress : null;
-  const emailOptIn = typeof context.query.emailOptIn === 'string' ? context.query.emailOptIn === 'yes' : null;
-  const telephoneNumber = typeof context.query.telephoneNumber === 'string' ? context.query.telephoneNumber : null;
-  const smsOptIn = typeof context.query.smsOptIn === 'string' ? context.query.smsOptIn === 'yes' : null;
-
-  const errors = typeof context.query.errors === 'string' && context.query.errors === 'true';
-
-  let testGroup: number | undefined;
-  const storedTestGroup = context.req.cookies.testGroup;
-  if (typeof storedTestGroup !== 'undefined') {
-    const parsed = parseInt(storedTestGroup, 10);
-    if (!isNaN(parsed)) {
-      testGroup = parsed;
-    }
-  }
-  if (typeof testGroup === 'undefined') {
-    testGroup = getRandomIntInclusive(1, 12);
-    const maxAge = 60 * 60 * 24 * 365;
-    context.res.setHeader('Set-Cookie', `testGroup=${testGroup}; Max-Age=${maxAge}; Path=/; Secure; SameSite=Strict`);
-  }
-
   const gclid = typeof context.query.gclid === 'string' ? context.query.gclid : null;
   const msclkid = typeof context.query.msclkid === 'string' ? context.query.msclkid : null;
 
@@ -245,7 +211,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
     term: typeof context.query.utm_term === 'string' ? context.query.utm_term || null : null,
   };
 
-  return { props: { firstName, lastName, emailAddress, emailOptIn, telephoneNumber, smsOptIn, errors, testGroup, gclid, msclkid, marketing } };
+  return { props: { gclid, msclkid, marketing } };
 };
 
 export default FloralDesignCourseCatalogPage;
