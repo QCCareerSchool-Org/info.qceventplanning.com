@@ -1,6 +1,7 @@
 import type { DocumentContext, DocumentInitialProps } from 'next/document';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
+import { Brevo } from '@/components/scripts/brevo';
 import { getFacebookScript, getGoogleAnalyticsScript, getGoogleAnalyticsSrc, getGoogleOptimizeSrc, getLivechatScript, getOptInMonsterScript, getPardotScript, getUetScript } from 'lib/marketingScripts';
 
 const googleAnalyticsId = process.env.GOOGLE_ANALYTICS_ID;
@@ -40,6 +41,7 @@ class MyDocument extends Document {
           )}
           {bingAnalyticsId && <script dangerouslySetInnerHTML={{ __html: getUetScript(bingAnalyticsId) }} />}
           {facebookAnalyticsId && <script dangerouslySetInnerHTML={{ __html: getFacebookScript(facebookAnalyticsId) }} />}
+          {process.env.BREVO_CLIENT_KEY && <Brevo clientKey={process.env.BREVO_CLIENT_KEY} />}
           {pardotDomain && pardotAccountId && <script dangerouslySetInnerHTML={{ __html: getPardotScript(pardotDomain, pardotAccountId, pardotCampaignId) }} />}
           {liveChatId && <script dangerouslySetInnerHTML={{ __html: getLivechatScript(liveChatId, liveChatGroup) }} />}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
