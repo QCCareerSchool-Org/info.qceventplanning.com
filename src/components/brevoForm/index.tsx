@@ -62,7 +62,7 @@ export const BrevoForm: FC<Props> = props => {
       {props.utmSource && <input type="hidden" name="utmSource" value={props.utmSource} />}
       {props.utmMedium && <input type="hidden" name="utmMedium" value={props.utmMedium} />}
       {props.utmCampaign && <input type="hidden" name="utmCampaign" value={props.utmCampaign} />}
-      {props.utmContent && <input type="hidden" name="utmSource" value={props.utmContent} />}
+      {props.utmContent && <input type="hidden" name="utmContent" value={props.utmContent} />}
       {props.utmTerm && <input type="hidden" name="utmTerm" value={props.utmTerm} />}
       <div className="mb-3">
         {!props.placeholders && <label htmlFor={`${id}firstName`} className="form-label">Name</label>}
