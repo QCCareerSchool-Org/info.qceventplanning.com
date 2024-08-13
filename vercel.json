@@ -1,13 +1,14 @@
 {
-  "rewrites": [
-    { "source": "/", "destination": "/free-event-and-wedding-planning-course-catalog" }
-  ],
   "redirects": [
-    { "source": "/free-event-course-catalog", "destination": "/free-event-and-wedding-planning-course-catalog" },
-    { "source": "/become-a-wedding-planner-ebook", "destination": "/free-event-course-catalog" },
-    { "source": "/become-an-event-planner-ebook", "destination": "/free-event-course-catalog" },
-    { "source": "/become-a-wedding-planner-ebook", "destination": "/free-event-course-catalog" },
-    { "source": "/free-party-course-catalog", "destination": "/free-event-course-catalog" },
-    { "source": "/free-wedding-course-catalog", "destination": "/free-event-course-catalog" }
+    { "source": "/", "destination": "https://www.qceventplanning.com/free-event-and-wedding-planning-course-catalog" },
+    { "source": "/free-event-and-wedding-planning-course-catalog", "destination": "https://www.qceventplanning.com/free-event-and-wedding-planning-course-catalog" },
+    { "source": "/free-event-planning-course-catalog", "destination": "https://www.qceventplanning.com/free-event-and-wedding-planning-course-catalog" },
+    { "source": "/free-floral-design-course-catalog", "destination": "https://www.qceventplanning.com/free-floral-design-course-catalog" },
+    { "source": "/free-event-course-catalog", "destination": "https://www.qceventplanning.com/free-event-and-wedding-planning-course-catalog" },
+    { "source": "/become-a-wedding-planner-ebook", "destination": "https://www.qceventplanning.com/free-event-and-wedding-planning-course-catalog" },
+    { "source": "/become-an-event-planner-ebook", "destination": "https://www.qceventplanning.com/free-event-and-wedding-planning-course-catalog" },
+    { "source": "/become-a-wedding-planner-ebook", "destination": "https://www.qceventplanning.com/free-event-and-wedding-planning-course-catalog" },
+    { "source": "/free-party-course-catalog", "destination": "https://www.qceventplanning.com/free-event-and-wedding-planning-course-catalog" },
+    { "source": "/free-wedding-course-catalog", "destination": "https://www.qceventplanning.com/free-event-and-wedding-planning-course-catalog" }
   ]
 }
